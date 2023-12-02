@@ -15,6 +15,20 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
     .toString(16)
     .padStart(32, '0')
 
+fun <T> Collection<T>.splitAfter(separator: T): List<List<T>> {
+    val result = mutableListOf<MutableList<T>>()
+
+    var newSublist = true
+    for (item in this) {
+        if (newSublist)
+            result += mutableListOf<T>()
+        result.last() += item
+        newSublist = (item == separator)
+    }
+
+    return result
+}
+
 /**
  * The cleaner shorthand for printing output.
  */
